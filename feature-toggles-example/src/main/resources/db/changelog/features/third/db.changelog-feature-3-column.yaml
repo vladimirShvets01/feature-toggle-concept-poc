@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: "user - add feature-3 column"
+      author: vladimir
+      context: "feature-3"
+      changes:
+        - addColumn:
+            tableName: user
+            columns:
+              - column:
+                  name: feature-3
+                  type: varchar(255)

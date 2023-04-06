@@ -1,0 +1,31 @@
+.flag-5-block {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+    font-family: sans-serif;
+    font-size: 16px;
+    max-width: 300px;
+}
+
+.flag-5-block p {
+    margin: 0 0 10px;
+}
+
+.flag-5-block button {
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px 0;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.flag-5-block button:hover {
+    background-color: #3e8e41;
+}
+
+.flag-5-block p.loading {
+    font-style: italic;
+    color: #aaa;
+}

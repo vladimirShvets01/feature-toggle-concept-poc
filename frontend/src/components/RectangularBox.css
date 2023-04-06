@@ -1,0 +1,26 @@
+.rectangular-box {
+  width: 200px;
+  height: 100px;
+  border: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 10px;
+}
+
+.rectangular-box p {
+  margin: 0;
+}
+
+.rectangular-box.enabled {
+  background-color: #4caf50;
+  color: #fff;
+}
+
+.rectangular-box.disabled {
+  background-color: #f44336;
+  color: #fff;
+}

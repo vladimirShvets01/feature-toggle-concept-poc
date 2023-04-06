@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/v1.0/db.changelog-v1.0.yaml
+  - include:
+      context: "feature-3"
+      file: db/changelog/features/third/db.changelog-feature-3-column.yaml
+  - include:
+      context: "feature-4"
+      file: db/changelog/features/fourth/db.changelog-feature-4-column.yaml
+  - include:
+      context: "feature-6"
+      file: db/changelog/features/sixth/db.changelog-feature-6-column.yaml
+  - include:
+      context: "feature-7"
+      file: db/changelog/features/seventh/db.changelog-feature-7-column.yaml
