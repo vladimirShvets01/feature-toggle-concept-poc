@@ -14,7 +14,7 @@ jobs:
           docker build -t feature-toggle-concept-poc/frontend ./frontend
           docker build -t feature-toggle-concept-poc/feature-toggles-example ./feature-toggles-example
       - name: Deploy with Docker Compose
-        uses: docker/compose-cli-action@v0.1.1
+        uses: 1Password/docker-compose-up-action
         with:
           compose-file: docker-compose.yaml
           project-name: feature-toggle-concept-poc
