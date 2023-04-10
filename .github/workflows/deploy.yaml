@@ -9,7 +9,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      - name: Print current directory
+        run: |
+          pwd
+          ls -al
       - name: Build and Deploy with Docker Compose
         run: |
-          cd feature-toggle-concept-poc
-          docker-compose up -d --build
+          docker-compose -f feature-toggle-concept-poc/docker-compose.yaml up -d --build
