@@ -13,6 +13,13 @@ jobs:
         run: |
           pwd
           ls -al
-      - name: Build and Deploy with Docker Compose
-        run: |
-          docker-compose up -d --build
+#      - name: Build and Deploy with Docker Compose
+#        run: |
+#          docker-compose up -d --build
+      - name: executing remote ssh commands using ssh key
+        uses: appleboy/ssh-action@v0.1.9
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: whoami
