@@ -15,4 +15,4 @@ jobs:
           ls -al
       - name: Build and Deploy with Docker Compose
         run: |
-          docker-compose -f feature-toggle-concept-poc/docker-compose.yaml up -d --build
+          docker-compose up -d --build
