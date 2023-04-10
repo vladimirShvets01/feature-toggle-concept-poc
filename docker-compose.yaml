@@ -1,0 +1,92 @@
+version: "3.9"
+services:
+  # Unleash server
+  unleash:
+    image: unleashorg/unleash-server:latest
+    ports:
+      - "4242:4242"
+    environment:
+      DATABASE_URL: "postgres://unleash:unleash@unleash_db/unleash"
+      DATABASE_SSL: "false"
+      LOG_LEVEL: "warn"
+      INIT_FRONTEND_API_TOKENS: "default:development.unleash-insecure-frontend-api-token"
+      INIT_CLIENT_API_TOKENS: "default:development.unleash-insecure-api-token"
+    depends_on:
+      unleash_db:
+        condition: service_healthy
+    command: ["node", "index.js"]
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:4242/health", "||", "exit", "1"]
+      interval: 1s
+      timeout: 1m
+      retries: 5
+      start_period: 15s
+
+  # Unleash database
+  unleash_db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: "unleash"
+      POSTGRES_USER: "unleash"
+      POSTGRES_PASSWORD: "unleash"
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "pg_isready",
+          "--username=unleash",
+          "--host=unleash_db",
+          "--port=5432"
+        ]
+      interval: 2s
+      timeout: 1m
+      retries: 5
+      start_period: 10s
+
+  # Spring Boot app
+  backend:
+    build: ./feature-toggles-example
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://backend_db/postgres"
+      UNLEASH_API_URL: "http://unleash:4242/api/"
+    depends_on:
+      backend_db:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8080/actuator/health" ]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+  # Spring Boot app database
+  backend_db:
+    image: postgres:15
+    environment:
+      POSTGRES_PASSWORD: example
+
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "pg_isready",
+          "--username=postgres",
+          "--host=backend_db",
+          "--port=5432"
+        ]
+      interval: 2s
+      timeout: 1m
+      retries: 5
+      start_period: 10s
+
+  # React app
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+
+
