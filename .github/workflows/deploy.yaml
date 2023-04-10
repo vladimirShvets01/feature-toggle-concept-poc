@@ -4,10 +4,12 @@ on:
     branches:
       - main
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Deploy with Docker Compose
-        run: docker-compose -f "docker-compose.yml" up -d --build
+      - name: Build and Deploy with Docker Compose
+        run: |
+          cd feature-toggle-concept-poc
+          docker-compose up -d --build
