@@ -1,0 +1,21 @@
+name: Deploy
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Build Docker images
+        run: |
+          docker build -t feature-toggle-concept-poc/frontend ./frontend
+          docker build -t feature-toggle-concept-poc/feature-toggles-example ./feature-toggles-example
+      - name: Deploy with Docker Compose
+        uses: docker/compose-action@v2
+        with:
+          compose-file: docker-compose.yaml
+          project-name: feature-toggle-concept-poc
+          command: up -d
