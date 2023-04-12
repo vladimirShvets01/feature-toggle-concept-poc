@@ -6,4 +6,8 @@ public interface UnleashService {
 
     boolean archiveFlag(String flagName);
 
+    void createDefaultFlags();
+
+    void setAdminToken(String token);
+
 }

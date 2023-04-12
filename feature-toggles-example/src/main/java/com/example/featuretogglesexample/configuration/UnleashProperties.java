@@ -11,6 +11,6 @@ public class UnleashProperties {
     private String instanceId;
     private String apiUrl;
     private String clientSecret;
-    private String adminToken;
+
 
 }
