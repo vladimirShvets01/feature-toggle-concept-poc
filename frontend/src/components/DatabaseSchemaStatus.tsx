@@ -8,7 +8,8 @@ function DatabaseSchemaStatus() {
 
     const sendRequest = async () => {
         setIsLoading(true);
-        const response = await fetch("http://localhost:8080/lines/schema");
+        const host = process.env.REACT_APP_HOST;
+        const response = await fetch("http://" + host + ":8080/lines/schema");
         const text = await response.text();
         setResponseText(text);
         setIsLoading(false);

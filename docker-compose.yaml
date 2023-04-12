@@ -88,5 +88,6 @@ services:
       - "3000:3000"
     environment:
       NODE_ENV: production
+      REACT_APP_HOST: 51.250.7.116
 
 

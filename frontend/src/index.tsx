@@ -5,10 +5,10 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import FlagProvider from "@unleash/proxy-client-react";
 
-
+const host = process.env.REACT_APP_HOST;
 
 const config = {
-    url: 'http://localhost:4242/api/frontend',
+    url: 'http://' + host + ':4242/api/frontend',
     clientKey: 'default:development.unleash-insecure-frontend-api-token',
     refreshInterval: 15,
     appName: 'feature-flag-example'
