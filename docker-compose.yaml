@@ -51,7 +51,6 @@ services:
     environment:
       SPRING_DATASOURCE_URL: "jdbc:postgresql://backend_db/postgres"
       UNLEASH_API_URL: "http://unleash:4242/api/"
-      DATABASE_URL: jdbc:postgresql://localhost:5432/postgres
     depends_on:
       backend_db:
         condition: service_healthy
