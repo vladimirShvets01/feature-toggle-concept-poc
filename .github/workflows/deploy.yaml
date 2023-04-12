@@ -1,25 +1,31 @@
-name: Deploy
+name: Deploy to VM
+
 on:
   push:
     branches:
       - main
+
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Print current directory
-        run: |
-          pwd
-          ls -al
-      - name: Build and Deploy with Docker Compose
-        run: |
-          docker-compose up -d --build
-#      - name: executing remote ssh commands using ssh key
-#        uses: appleboy/ssh-action@v0.1.9
-#        with:
-#          host: ${{ secrets.SSH_HOST }}
-#          username: ${{ secrets.SSH_USER }}
-#          password: ${{ secrets.SSH_PASSWORD }}
-#          script: whoami
+
+      - name: Setup SSH key
+        uses: webfactory/ssh-agent@v0.5.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Connect to remote host
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.USER }}
+          script: |
+            cd feature-toggle-concept-poc
+            git pull origin main
+            sudo docker-compose down
+            sudo docker-compose build
+            sudo docker-compose up -d
