@@ -18,6 +18,7 @@ function App() {
         {
           useFlag('feature-flag-1') && <p>You are seeing this message, because flag 1 is enabled</p>
         }
+        <p>some text for github actions test</p>
         <div className="requests">
           <SendMiddlewareRequestComponent></SendMiddlewareRequestComponent>
           <DatabaseSchemaStatus></DatabaseSchemaStatus>
